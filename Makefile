@@ -1,6 +1,12 @@
-CC = CC
+CC = cc
 
 CFLAGS = -Wall -Wextra -Werror
+
+CNAME = client
+
+SNAME = server
+
+RM = rm -f
 
 SRC = utils.c
 
@@ -8,22 +14,30 @@ SRC_C = client.c
 
 SRC_S = server.c
 
-SERVER = server
+HEADER = minitalk.h
 
-CLIENT = client
+OBJ = $(SRC:.c=.o)
 
-all : $(SERVER) $(CLIENT)
+COBJ = $(SRC_C:.c=.o)
 
-$(SERVER): $(SRC_S) $(SRC)
+SOBJ = $(SRC_S:.c=.o)
+
+all: $(CNAME) $(SNAME)
+
+$(CNAME): $(OBJ) $(COBJ)
 	$(CC) $(CFLAGS) $^ -o $@
 
-$(CLIENT): $(SRC_C) $(SRC)
+$(SNAME): $(OBJ) $(SOBJ)
 	$(CC) $(CFLAGS) $^ -o $@
+
+%.o: %.c $(HEADER)
+	$(CC) $(CFLAGS) -c $< -o $@
 
 clean:
-	rm -rf $(SERVER) $(CLIENT)
+	$(RM) $(OBJ) $(COBJ) $(SOBJ)
 
 fclean: clean
+	$(RM) $(SNAME) $(CNAME)
 
 re: fclean all
 

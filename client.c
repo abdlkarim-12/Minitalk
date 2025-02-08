@@ -6,7 +6,7 @@
 /*   By: aguenzao <aguenzao@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/03 16:33:56 by aguenzao          #+#    #+#             */
-/*   Updated: 2025/02/06 15:58:16 by aguenzao         ###   ########.fr       */
+/*   Updated: 2025/02/07 19:14:23 by aguenzao         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ int	main(int ac, char **av)
 	if (ac == 3)
 	{
 		server_pid = ft_atoi(av[1]);
-		if (kill(server_pid, 0) == -1)
+		if (server_pid < 1 || kill(server_pid, 0) == -1)
 		{
 			write(1, "Invalid PID\n", 12);
 			return (0);
